@@ -1,0 +1,224 @@
+{% load static%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction page</title>
+    <style type="text/css">
+        body{
+            background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .main{
+            position: fixed;
+            top: 100px;
+            left: 25%;
+            width: 550px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            align-items: center;
+            padding: 5%;
+        }
+        h1{
+            color: blue;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        input[type=submit]{
+            background-color: #4dc3ff;
+            border:2px;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 15px;
+
+        }
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .alert-box {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.25);
+            max-width: 400px;
+        }
+
+        .alert-box h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .alert-box button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .alert-box button:hover {
+            background-color: #0056b3;
+        }
+        @media (min-width: 319px) and (max-width: 480px) {
+      body {
+        background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+        
+        .main {
+        width: 80%;
+        left: 0%;
+        top: 22.5%;
+        padding: 10%;
+        align-items: center;
+
+        }
+        h1 {
+        font-size: 24px;
+        }
+        input[type=submit] {
+        font-size: 14px;
+        padding: 6px 12px;
+        }
+        table {
+        width: 100%;
+        }
+    }
+    @media (min-width: 481px) and (max-width: 1200px) {
+      body {
+                background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            .main {
+                width: 80%;
+                left: 5%;
+                top: 30%;
+                padding: 5%;
+                align-items: center;
+
+            }
+            h1 {
+                font-size: 26px;
+            }
+            input[type=submit] {
+                font-size: 15px;
+                padding: 7px 14px;
+            }
+    }
+    
+
+        
+
+        
+    </style>
+    <script>
+        function closeAlert() {
+            document.getElementById("customAlert").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <div align = 'center' class="main">
+        <h1>Please enter the following information</h1>
+        <form action="result" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td align="right">Gender:</td>
+                    <td align="left">
+                        <select name="a1" required>
+                            <option value="">Select</option>
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                            <option value="2">Others</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Age:</td>
+                    <td align="left"><input type="number" name="a2" min="1" max="150" required></td>
+                </tr>
+                <tr>
+                    <td align="right">Hypertension:</td>
+                    <td align="left">
+                        <select name="a3" required>
+                            <option value="">Select</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Heart disease:</td>
+                    <td align="left">
+                        <select name="a4" required>
+                            <option value="">Select</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Smoking History:</td>
+                    <td align="left">
+                        <select name="a5" required>
+                            <option value="">Select</option>
+                            <option value="0">No Info</option>
+                            <option value="1">Current</option>
+                            <option value="2">Ever</option>
+                            <option value="3">Former</option>
+                            <option value="4">Never</option>
+                            <option value="5">Not current</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">BMI:</td>
+                    <td align="left"><input type="text" name="a6" required></td>
+                </tr>
+                <tr>
+                    <td align="right">HbA1c level:</td>
+                    <td align="left"><input type="text" name="a7" required></td>
+                </tr>
+                <tr>
+                    <td align="right">Blood glucose level:</td>
+                    <td align="left"><input type="text" name="a8" required></td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+    {% if result2 %}
+        <div id="customAlert" class="alert-overlay">
+            <div class="alert-box">
+            <h2>Prediction Result</h2>
+            <p>{{ result2 }}</p>
+            <button onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+{% endif %}
+</body>
+</html>

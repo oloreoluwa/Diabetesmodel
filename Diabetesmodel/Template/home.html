@@ -1,0 +1,92 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-image:url("{% static 'DiabetesModel\images\diabetes-.jpg'%}");
+            background-size: cover;
+            text-align: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin-top: 25%;
+        }
+        h1 {
+            color: white;
+            font-size: 50px;
+            text-shadow: 2px 2px 4px rgba(14, 4, 58, 0.5);
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media (min-width: 481px) and (max-width: 1200px) /*tab*/  {
+            body {
+                background-image: url("{% static 'DiabetesModel\\images\\diabetes-.jpg' %}");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                margin-top: 60%;
+                font-family: 'Courier New', Courier, monospace;
+
+            }
+            h1 {
+                font-size: 30px;
+            }
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+                background-color: #007bff;
+                color: white;
+            }
+        }
+        @media (min-width: 319px) and (max-width: 480px) /*phone*/ {
+             body {
+                background-image: url("{% static 'DiabetesModel\\images\\diabetes-.jpg' %}");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                margin-top: 80%;
+                font-family: 'Courier New', Courier, monospace;
+
+            }
+            h1 {
+                font-size: 30px;
+            }
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+                background-color: #007bff;
+                color: white;
+                border-radius: 10px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>
+            Welcome to the Diabetes Prediction App
+        </h1>
+        <form action = "predict">
+            <button type="submit">Let's Begin</button>
+        </form>
+    </div>
+    
+</body>
+</html>
