@@ -59,7 +59,7 @@ def result(request):
         if pred == [1]:
             result1 = "⚠️ You have diabetes or high chances of having diabetes."
         else:
-            result1 = "✅ You do not have diabetes or have a low risk."
+            result1 = "✅ You do not have diabetes or a low risk of having diabetes."
 
         request.session['result2'] = result1
 
