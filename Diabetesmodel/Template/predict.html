@@ -1,224 +1,250 @@
-{% load static%}
-
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction page</title>
-    <style type="text/css">
-        body{
-            background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-        }
-        .main{
-            position: fixed;
-            top: 100px;
-            left: 25%;
-            width: 550px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            align-items: center;
-            padding: 5%;
-        }
-        h1{
-            color: blue;
-            font-size: 30px;
-            font-weight: bold;
-        }
-        input[type=submit]{
-            background-color: #4dc3ff;
-            border:2px;
-            color: white;
-            padding: 8px 16px;
-            cursor: pointer;
-            margin-top: 15px;
-
-        }
-        .alert-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .alert-box {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.25);
-            max-width: 400px;
-        }
-
-        .alert-box h2 {
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-
-        .alert-box button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .alert-box button:hover {
-            background-color: #0056b3;
-        }
-        @media (min-width: 319px) and (max-width: 480px) {
-      body {
-        background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        }
-        
-        .main {
-        width: 80%;
-        left: 0%;
-        top: 22.5%;
-        padding: 10%;
-        align-items: center;
-
-        }
-        h1 {
-        font-size: 24px;
-        }
-        input[type=submit] {
-        font-size: 14px;
-        padding: 6px 12px;
-        }
-        table {
-        width: 100%;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediction Page</title>
+  <style type="text/css">
+    body {
+      background: linear-gradient(to right, #c8e0f1, #747573); /* Soft gradient */
+      font-family: Arial, sans-serif;
     }
-    @media (min-width: 481px) and (max-width: 1200px) {
-      body {
-                background-image:url("{% static 'DiabetesModel\images\blue-heart.jpg'%}");
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
-            }
-            .main {
-                width: 80%;
-                left: 5%;
-                top: 30%;
-                padding: 5%;
-                align-items: center;
 
-            }
-            h1 {
-                font-size: 26px;
-            }
-            input[type=submit] {
-                font-size: 15px;
-                padding: 7px 14px;
-            }
+    .main {
+      margin: 80px auto;
+      width: 550px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      position: relative;
     }
-    
 
-        
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #2196f3;
+      position: absolute;
+      top: 20px;
+      left: 30px;
+    }
 
-        
-    </style>
-    <script>
-        function closeAlert() {
-            document.getElementById("customAlert").style.display = "none";
-        }
-    </script>
+    h1 {
+      color: #1976d2;
+      font-size: 24px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    input[type=submit] {
+      background-color: #4dc3ff;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    td {
+      padding: 8px 4px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    input[readonly] {
+      background-color: #f3f3f3;
+    }
+
+    .alert-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .alert-box {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      max-width: 400px;
+    }
+
+    .alert-box h2 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .alert-box button {
+      background-color: #007bff;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .alert-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .learn-more-link {
+        display: inline-block;
+        margin: 10px 0;
+        color: #fff;
+        background: #007BFF;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .learn-more-link:hover {
+        background: #0056b3;
+    }
+
+  </style>
 </head>
 <body>
-    <div align = 'center' class="main">
-        <h1>Please enter the following information</h1>
-        <form action="result" method="POST">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td align="right">Gender:</td>
-                    <td align="left">
-                        <select name="a1" required>
-                            <option value="">Select</option>
-                            <option value="0">Female</option>
-                            <option value="1">Male</option>
-                            <option value="2">Others</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">Age:</td>
-                    <td align="left"><input type="number" name="a2" min="1" max="150" required></td>
-                </tr>
-                <tr>
-                    <td align="right">Hypertension:</td>
-                    <td align="left">
-                        <select name="a3" required>
-                            <option value="">Select</option>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">Heart disease:</td>
-                    <td align="left">
-                        <select name="a4" required>
-                            <option value="">Select</option>
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">Smoking History:</td>
-                    <td align="left">
-                        <select name="a5" required>
-                            <option value="">Select</option>
-                            <option value="0">No Info</option>
-                            <option value="1">Current</option>
-                            <option value="2">Ever</option>
-                            <option value="3">Former</option>
-                            <option value="4">Never</option>
-                            <option value="5">Not current</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">BMI:</td>
-                    <td align="left"><input type="text" name="a6" required></td>
-                </tr>
-                <tr>
-                    <td align="right">HbA1c level:</td>
-                    <td align="left"><input type="text" name="a7" required></td>
-                </tr>
-                <tr>
-                    <td align="right">Blood glucose level:</td>
-                    <td align="left"><input type="text" name="a8" required></td>
-                </tr>
-            </table>
-            <input type="submit" value="Submit">
-        </form>
+  <div class="main">
+    <div class="logo">PrediQ</div>
 
-    </div>
+    <h1>Please enter the following information</h1>
+    <form action="result" method="POST">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td align="right">Gender:</td>
+          <td><select name="a1">
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td align="right">Age:</td>
+          <td><input type="number" name="a2" min="1" max="150" required></td>
+        </tr>
+        <tr>
+          <td align="right">Hypertension:</td>
+          <td><select name="a3">
+                <option value="">Select</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+        </select></td>
+        </tr>
+        <tr>
+            <td align="right">Heart disease:</td>
+            <td><select name="a4">
+                <option value="">Select</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td align="right">Smoking History:</td>
+          <td><select name="a5" required>
+              <option value="">Select</option>
+              <option value="no info">No Info</option>
+              <option value="current">Current</option>
+              <option value="ever">Ever</option>
+              <option value="former">Former</option>
+              <option value="never">Never</option>
+              <option value="not current">Not current</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td align="right">Height (in meters):</td>
+          <td><input type="number" step="0.01" name="height" id="height" required></td>
+        </tr>
+        <tr>
+          <td align="right">Weight (in kg):</td>
+          <td><input type="number" step="0.1" name="weight" id="weight" required></td>
+        </tr>
+        <tr>
+          <td align="right">BMI:</td>
+          <td><input type="text" name="a6" id="bmi" readonly></td>
+        </tr>
+        <tr>
+          <td align="right">HbA1c level:</td>
+          <td><input type="text" name="a7" required></td>
+        </tr>
+        <tr>
+          <td align="right">Blood glucose level:</td>
+          <td><input type="text" name="a8" required></td>
+        </tr>
+      </table>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
     {% if result2 %}
         <div id="customAlert" class="alert-overlay">
             <div class="alert-box">
-            <h2>Prediction Result</h2>
-            <p>{{ result2 }}</p>
-            <button onclick="closeAlert()">OK</button>
+                <h2>Prediction Result</h2>
+                <p>{{ result2 }}</p>
+
+                {% if "Normal" in result2 %}
+                    <a href="{% url 'learn_normal' %}" class="learn-more-link">Learn More</a>
+                {% elif "Pre-Diabetic" in result2 %}
+                    <a href="{% url 'learn_prediabetes' %}" class="learn-more-link">Learn How to Manage</a>
+                {% elif "Diabetic" in result2 %}
+                    <a href="{% url 'learn_diabetes' %}" class="learn-more-link">Learn How to Control It</a>
+                {% endif %}
+
+            </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+
+
+
+  <script>
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const bmiInput = document.getElementById("bmi");
+
+      if (height > 0 && weight > 0) {
+        const bmi = weight / (height * height);
+        bmiInput.value = bmi.toFixed(2);
+      } else {
+        bmiInput.value = "";
+      }
+    }
+
+    document.getElementById("height").addEventListener("input", calculateBMI);
+    document.getElementById("weight").addEventListener("input", calculateBMI);
+
+    function closeAlert() {
+      document.getElementById("customAlert").style.display = "none";
+    }
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+      const bmi = document.getElementById("bmi").value;
+      if (!bmi || isNaN(bmi) || parseFloat(bmi) <= 0) {
+        alert("Please enter valid height and weight to calculate BMI.");
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
